@@ -9,118 +9,117 @@
 <meta name="theme-color" content="#1e1b4b">
 <title>Family Loan</title>
 <style>
-:root {
-  --primary:#312e81; --primary-light:#4338ca; --accent:#8b5cf6;
-  --success:#10b981; --danger:#ef4444; --warn:#f59e0b;
-  --bg:#f0f4ff; --card:#fff; --text:#1e293b; --muted:#64748b; --border:#e2e8f0;
-  --safe-top:env(safe-area-inset-top,20px); --safe-bottom:env(safe-area-inset-bottom,20px);
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-.screen{display:none;min-height:100vh;flex-direction:column;}
-.screen.active{display:flex;}
-
-.app-header{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);padding:calc(var(--safe-top) + 12px) 20px 28px;position:relative;overflow:hidden;}
-.app-header::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);}
-.header-inner{position:relative;z-index:1;}
-.app-subtitle{font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
-.app-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.5px;}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;}
-.stat-box{background:rgba(255,255,255,0.12);border-radius:14px;padding:12px;backdrop-filter:blur(10px);}
-.stat-label{font-size:10px;color:rgba(255,255,255,0.6);margin-bottom:3px;}
-.stat-value{font-size:15px;font-weight:800;}
-
-.body-scroll{flex:1;overflow-y:auto;padding:18px 16px;padding-bottom:calc(var(--safe-bottom) + 85px);}
-
-.tab-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;padding-bottom:var(--safe-bottom);z-index:100;}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;cursor:pointer;border:none;background:none;}
-.tab-icon{font-size:22px;margin-bottom:2px;}
-.tab-label{font-size:10px;color:var(--muted);font-weight:600;}
-.tab-btn.active .tab-label{color:var(--primary-light);}
-.tab-btn.active .tab-icon{transform:scale(1.15);}
-
-.card{background:var(--card);border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,0.08);}
-.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
-.loan-name{font-size:16px;font-weight:700;margin-bottom:5px;}
-.loan-balance{font-size:22px;font-weight:800;}
-.loan-bal-label{font-size:11px;color:var(--muted);margin-top:1px;}
-
-.progress-bar{background:#f1f5f9;border-radius:99px;height:7px;margin:12px 0;overflow:hidden;}
-.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width 0.8s ease;}
-.progress-fill.done{background:var(--success);}
-
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.mini-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.mini-box{background:#f8fafc;border-radius:10px;padding:9px 11px;}
-.mini-label{font-size:10px;color:var(--muted);margin-bottom:2px;}
-.mini-value{font-size:13px;font-weight:700;}
-
-.interest-alert{background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #f59e0b;border-radius:12px;padding:12px 14px;margin-top:12px;}
-.interest-alert-title{font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;}
-.interest-alert-row{display:flex;justify-content:space-between;font-size:13px;color:#78350f;}
-
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
-.badge-green{background:#d1fae5;color:#065f46;}
-.badge-amber{background:#fef3c7;color:#92400e;}
-.badge-gray{background:#f3f4f6;color:#374151;}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 20px;border-radius:14px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all 0.15s;width:100%;margin-bottom:10px;}
-.btn:active{transform:scale(0.97);}
-.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;}
-.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff;}
-.btn-outline{background:transparent;color:var(--primary-light);border:2px solid var(--primary-light);}
-.btn-ghost{background:#f1f5f9;color:var(--muted);}
-.btn-sm{padding:9px 16px;font-size:13px;border-radius:10px;margin-bottom:0;width:auto;}
-.flex-row{display:flex;gap:10px;}
-.flex-row .btn{flex:1;}
-
-.section-title{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
-
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;backdrop-filter:blur(4px);align-items:flex-end;}
-.modal-overlay.open{display:flex;}
-.modal-sheet{background:#fff;border-radius:24px 24px 0 0;padding:20px;padding-bottom:calc(var(--safe-bottom) + 20px);width:100%;max-height:90vh;overflow-y:auto;animation:slideUp 0.3s ease;}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-handle{width:40px;height:4px;background:#e2e8f0;border-radius:2px;margin:0 auto 20px;}
-.modal-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:20px;}
-
-.form-group{margin-bottom:16px;}
-.form-label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;}
-.form-input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid var(--border);font-size:16px;font-family:inherit;background:#f8fafc;color:var(--text);outline:none;transition:border 0.2s;}
-.form-input:focus{border-color:var(--primary-light);background:#fff;}
-
-.breakdown-box{background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:14px;margin-bottom:16px;font-size:14px;}
-.breakdown-title{font-weight:700;color:#166534;margin-bottom:8px;}
-.breakdown-row{display:flex;justify-content:space-between;margin-bottom:5px;align-items:center;}
-
-.detail-header{background:linear-gradient(135deg,#1e1b4b,#312e81);padding:calc(var(--safe-top) + 10px) 20px 28px;}
-.back-btn{background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:10px;padding:7px 14px;font-size:14px;cursor:pointer;margin-bottom:14px;font-weight:600;}
-.detail-amount{font-size:34px;font-weight:900;color:#fff;margin:8px 0 4px;}
-.detail-principal{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:6px;}
-
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-.info-box{background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.info-label{font-size:11px;color:var(--muted);margin-bottom:3px;}
-.info-value{font-size:15px;font-weight:700;}
-
-.pay-item{border-bottom:1px solid #f1f5f9;padding:14px 0;}
-.pay-item:last-child{border-bottom:none;}
-.pay-amount-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.pay-amount{font-size:17px;font-weight:800;color:var(--success);}
-.pay-date{font-size:12px;color:var(--muted);}
-
-.toast{position:fixed;top:calc(var(--safe-top) + 16px);left:50%;transform:translateX(-50%);z-index:9999;background:#1e293b;color:#fff;padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.3);display:none;}
-.toast.show{display:block;animation:fadeInOut 2.8s ease forwards;}
-@keyframes fadeInOut{0%{opacity:0;transform:translateX(-50%) translateY(-10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0}}
-
-.install-banner{background:linear-gradient(135deg,#312e81,#4c1d95);border-radius:16px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
-.empty-icon{font-size:56px;margin-bottom:14px;}
-.empty-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;}
-
-.accrued-banner{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:16px;padding:16px;margin-bottom:14px;border:1px solid #f59e0b;}
-.accrued-title{font-size:13px;font-weight:700;color:#92400e;margin-bottom:8px;}
-.accrued-row{display:flex;justify-content:space-between;font-size:14px;color:#78350f;margin-bottom:4px;}
-.accrued-total{display:flex;justify-content:space-between;font-size:16px;font-weight:800;color:#92400e;margin-top:8px;padding-top:8px;border-top:1px solid #f59e0b;}
+:root{--pt:env(safe-area-inset-top,20px);--pb:env(safe-area-inset-bottom,20px)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4ff;color:#1e293b;min-height:100vh}
+.screen{display:none;min-height:100vh;flex-direction:column}.screen.active{display:flex}
+/* Header */
+.hdr{background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95);padding:calc(var(--pt)+10px) 20px 28px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hi{position:relative;z-index:1}
+.app-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.app-sub{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px}
+.sbox{background:rgba(255,255,255,.12);border-radius:14px;padding:12px;backdrop-filter:blur(10px)}
+.slbl{font-size:10px;color:rgba(255,255,255,.6);margin-bottom:3px}
+.sval{font-size:15px;font-weight:800}
+/* Body */
+.body{flex:1;overflow-y:auto;padding:18px 16px;padding-bottom:calc(var(--pb)+80px)}
+/* Tabs */
+.tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-top:1px solid #e2e8f0;display:flex;padding-bottom:var(--pb);z-index:100}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;cursor:pointer;border:none;background:none}
+.ti{font-size:22px;margin-bottom:2px}
+.tl{font-size:10px;color:#64748b;font-weight:600}
+.tab.active .tl{color:#4338ca}
+.tab.active .ti{transform:scale(1.15)}
+/* Cards */
+.card{background:#fff;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+/* Progress */
+.prog{background:#f1f5f9;border-radius:99px;height:7px;margin:12px 0;overflow:hidden}
+.pf{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width .8s}
+.pf.done{background:#10b981}
+/* Grids */
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mb{background:#f8fafc;border-radius:10px;padding:8px 10px}
+.ml{font-size:10px;color:#64748b;margin-bottom:2px}
+.mv{font-size:13px;font-weight:700}
+/* Badges */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.bg{background:#d1fae5;color:#065f46}
+.br{background:#fee2e2;color:#991b1b}
+.by{background:#fef3c7;color:#92400e}
+.bgr{background:#f3f4f6;color:#374151}
+/* Info boxes */
+.ibox{background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ilbl{font-size:11px;color:#64748b;margin-bottom:3px}
+.ival{font-size:15px;font-weight:700}
+/* Alert boxes */
+.alert-due{background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1.5px solid #fcd34d;border-radius:16px;padding:14px;margin-bottom:12px}
+.alert-over{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1.5px solid #fca5a5;border-radius:16px;padding:14px;margin-bottom:12px}
+.alert-title{font-size:13px;font-weight:800;margin-bottom:6px}
+.alert-text{font-size:12px;line-height:1.6}
+/* Opening interest box */
+.open-int-box{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:1.5px solid #e879f9;border-radius:14px;padding:14px;margin-bottom:14px}
+.open-int-title{font-size:12px;font-weight:800;color:#7e22ce;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.open-int-row{display:flex;justify-content:space-between;font-size:13px;color:#6b21a8;margin-bottom:5px}
+.open-int-total{display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:#7c3aed;border-top:1px solid #e879f9;margin-top:8px;padding-top:8px}
+/* Status/Closure box */
+.closure-box{background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1.5px solid #c4b5fd;border-radius:16px;padding:16px;margin-bottom:14px}
+.closure-title{font-size:11px;font-weight:800;color:#5b21b6;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.closure-date{font-size:22px;font-weight:900;color:#4c1d95;margin-bottom:3px}
+.closure-sub{font-size:12px;color:#7c3aed;margin-bottom:12px}
+/* Interest due box */
+.int-due-box{background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1.5px solid #fcd34d;border-radius:14px;padding:14px;margin-bottom:14px}
+.int-due-title{font-size:12px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.int-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.int-total{display:flex;justify-content:space-between;font-size:15px;font-weight:800;border-top:1px solid #fcd34d;margin-top:8px;padding-top:8px}
+/* OK box */
+.ok-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:14px;padding:14px;margin-bottom:14px}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 20px;border-radius:14px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .15s;width:100%;margin-bottom:10px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.btn-outline{background:transparent;color:#4338ca;border:2px solid #4338ca}
+.btn-ghost{background:#f1f5f9;color:#64748b}
+.btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
+.btn-sm{padding:9px 16px;font-size:13px;border-radius:10px;margin-bottom:0;width:auto}
+.sec-title{font-size:11px;font-weight:800;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+/* Modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;backdrop-filter:blur(4px);align-items:flex-end}
+.overlay.open{display:flex}
+.sheet{background:#fff;border-radius:24px 24px 0 0;padding:20px;padding-bottom:calc(var(--pb)+20px);width:100%;max-height:92vh;overflow-y:auto;animation:up .3s ease}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.handle{width:40px;height:4px;background:#e2e8f0;border-radius:2px;margin:0 auto 20px}
+.mtitle{font-size:18px;font-weight:800;margin-bottom:20px}
+/* Form */
+.fg{margin-bottom:16px}
+.fl{display:block;font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px}
+.fi{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid #e2e8f0;font-size:16px;font-family:inherit;background:#f8fafc;color:#1e293b;outline:none;transition:border .2s}
+.fi:focus{border-color:#4338ca;background:#fff}
+/* Breakdown */
+.bdown{background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:14px;margin-bottom:16px}
+.bdown-title{font-weight:700;color:#166534;margin-bottom:10px;font-size:14px}
+.bdown-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px}
+.bdown-total{display:flex;justify-content:space-between;font-size:15px;font-weight:800;border-top:1px solid #86efac;margin-top:8px;padding-top:8px;color:#166534}
+/* Detail header */
+.det-hdr{background:linear-gradient(135deg,#1e1b4b,#312e81);padding:calc(var(--pt)+10px) 20px 28px}
+.back-btn{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:10px;padding:7px 14px;font-size:14px;cursor:pointer;margin-bottom:14px;font-weight:600}
+.det-bal{font-size:34px;font-weight:900;color:#fff;margin:8px 0 4px}
+/* Pay history */
+.pay-item{border-bottom:1px solid #f1f5f9;padding:14px 0}
+.pay-item:last-child{border-bottom:none}
+/* Schedule */
+.stbl{width:100%;border-collapse:collapse;font-size:12px}
+.stbl th{padding:8px 6px;text-align:right;font-size:10px;color:#64748b;font-weight:700;background:#f8fafc}
+.stbl td{padding:7px 6px;text-align:right;border-top:1px solid #f1f5f9}
+.stbl tr:nth-child(even) td{background:#fafafa}
+/* Toast */
+.toast{position:fixed;top:calc(var(--pt)+16px);left:50%;transform:translateX(-50%);z-index:9999;background:#1e293b;color:#fff;padding:12px 22px;border-radius:14px;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.3);display:none}
+.toast.show{display:block;animation:ft 3s ease forwards}
+@keyframes ft{0%{opacity:0;transform:translateX(-50%) translateY(-10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0}}
+.fr{display:flex;gap:10px}.fr .btn{flex:1}
 </style>
 </head>
 <body>
@@ -128,497 +127,766 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- DASHBOARD -->
 <div class="screen active" id="screen-dashboard">
-  <div class="app-header">
-    <div class="header-inner">
-      <div class="app-subtitle">Management App</div>
+  <div class="hdr">
+    <div class="hi">
+      <div class="app-sub">Management App</div>
       <div class="app-title">🏦 Family Loan</div>
-      <div class="stats-grid">
-        <div class="stat-box"><div class="stat-label">ആകെ ബാക്കി</div><div class="stat-value" id="total-balance" style="color:#f87171">₹0</div></div>
-        <div class="stat-box"><div class="stat-label">ആകെ അടച്ചത്</div><div class="stat-value" id="total-paid" style="color:#34d399">₹0</div></div>
-        <div class="stat-box"><div class="stat-label">Accrued Interest</div><div class="stat-value" id="total-accrued" style="color:#fbbf24">₹0</div></div>
+      <div class="sgrid">
+        <div class="sbox"><div class="slbl">ആകെ ബാക്കി</div><div class="sval" id="s-bal" style="color:#f87171">₹0</div></div>
+        <div class="sbox"><div class="slbl">ആകെ അടച്ചത്</div><div class="sval" id="s-paid" style="color:#34d399">₹0</div></div>
+        <div class="sbox"><div class="slbl">ഈ മാസം EMI</div><div class="sval" id="s-emi" style="color:#fbbf24">₹0</div></div>
       </div>
     </div>
   </div>
-  <div class="body-scroll">
-    <div id="install-banner" class="install-banner">
-      <div style="font-size:28px">📲</div>
-      <div style="flex:1"><div style="font-size:14px;font-weight:700;color:#fff">iPhone-ൽ Install</div><div style="font-size:12px;color:rgba(255,255,255,0.7)">Safari → Share → Add to Home Screen</div></div>
-      <button onclick="this.closest('.install-banner').style.display='none'" style="color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;background:none;border:none;padding:4px">✕</button>
-    </div>
-    <div class="section-title">ലോണുകൾ</div>
+  <div class="body">
+    <div id="alerts"></div>
+    <div class="sec-title">ലോണുകൾ</div>
     <div id="loan-cards"></div>
-    <button class="btn btn-primary" onclick="showModal('add-loan-modal')">＋ പുതിയ ലോൺ ചേർക്കുക</button>
+    <button class="btn btn-primary" onclick="showModal('add-modal')">＋ പുതിയ ലോൺ ചേർക്കുക</button>
   </div>
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('dashboard')"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
-    <button class="tab-btn" onclick="switchTab('history')"><span class="tab-icon">📋</span><span class="tab-label">History</span></button>
-    <button class="tab-btn" onclick="switchTab('summary')"><span class="tab-icon">📊</span><span class="tab-label">Summary</span></button>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('dashboard')"><span class="ti">🏠</span><span class="tl">Home</span></button>
+    <button class="tab" onclick="switchTab('status')"><span class="ti">🎯</span><span class="tl">Status</span></button>
+    <button class="tab" onclick="switchTab('history')"><span class="ti">📋</span><span class="tl">History</span></button>
+    <button class="tab" onclick="switchTab('summary')"><span class="ti">📊</span><span class="tl">Summary</span></button>
   </div>
 </div>
 
-<!-- DETAIL -->
-<div class="screen" id="screen-detail">
-  <div class="detail-header">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <div id="detail-name" style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:2px;"></div>
-    <div id="detail-balance" class="detail-amount">₹0</div>
-    <div id="detail-principal" class="detail-principal"></div>
-    <div id="detail-badge"></div>
-  </div>
-  <div class="body-scroll">
-    <div id="detail-accrued-banner"></div>
-    <div class="info-grid" id="detail-info-grid"></div>
-    <div class="flex-row" style="margin-bottom:18px;">
-      <button class="btn btn-success" onclick="openPayModal()">💳 Payment ചേർക്കുക</button>
-    </div>
-    <div class="card">
-      <div class="section-title">Payment History</div>
-      <div id="payment-history-list"></div>
-    </div>
+<!-- STATUS -->
+<div class="screen" id="screen-status">
+  <div class="hdr"><div class="hi"><div class="app-sub">ഇപ്പോഴത്തെ അവസ്ഥ</div><div class="app-title">🎯 Current Status</div></div></div>
+  <div class="body"><div id="status-content"></div></div>
+  <div class="tabs">
+    <button class="tab" onclick="switchTab('dashboard')"><span class="ti">🏠</span><span class="tl">Home</span></button>
+    <button class="tab active" onclick="switchTab('status')"><span class="ti">🎯</span><span class="tl">Status</span></button>
+    <button class="tab" onclick="switchTab('history')"><span class="ti">📋</span><span class="tl">History</span></button>
+    <button class="tab" onclick="switchTab('summary')"><span class="ti">📊</span><span class="tl">Summary</span></button>
   </div>
 </div>
 
 <!-- HISTORY -->
 <div class="screen" id="screen-history">
-  <div class="app-header">
-    <div class="header-inner">
-      <div class="app-subtitle">All Transactions</div>
-      <div class="app-title">📋 History</div>
-    </div>
-  </div>
-  <div class="body-scroll"><div id="all-history"></div></div>
-  <div class="tab-bar">
-    <button class="tab-btn" onclick="switchTab('dashboard')"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
-    <button class="tab-btn active" onclick="switchTab('history')"><span class="tab-icon">📋</span><span class="tab-label">History</span></button>
-    <button class="tab-btn" onclick="switchTab('summary')"><span class="tab-icon">📊</span><span class="tab-label">Summary</span></button>
+  <div class="hdr"><div class="hi"><div class="app-sub">എല്ലാ Transactions</div><div class="app-title">📋 History</div></div></div>
+  <div class="body"><div id="history-content"></div></div>
+  <div class="tabs">
+    <button class="tab" onclick="switchTab('dashboard')"><span class="ti">🏠</span><span class="tl">Home</span></button>
+    <button class="tab" onclick="switchTab('status')"><span class="ti">🎯</span><span class="tl">Status</span></button>
+    <button class="tab active" onclick="switchTab('history')"><span class="ti">📋</span><span class="tl">History</span></button>
+    <button class="tab" onclick="switchTab('summary')"><span class="ti">📊</span><span class="tl">Summary</span></button>
   </div>
 </div>
 
 <!-- SUMMARY -->
 <div class="screen" id="screen-summary">
-  <div class="app-header">
-    <div class="header-inner">
-      <div class="app-subtitle">Overview</div>
-      <div class="app-title">📊 Summary</div>
-    </div>
+  <div class="hdr"><div class="hi"><div class="app-sub">Overview</div><div class="app-title">📊 Summary</div></div></div>
+  <div class="body"><div id="summary-content"></div></div>
+  <div class="tabs">
+    <button class="tab" onclick="switchTab('dashboard')"><span class="ti">🏠</span><span class="tl">Home</span></button>
+    <button class="tab" onclick="switchTab('status')"><span class="ti">🎯</span><span class="tl">Status</span></button>
+    <button class="tab" onclick="switchTab('history')"><span class="ti">📋</span><span class="tl">History</span></button>
+    <button class="tab active" onclick="switchTab('summary')"><span class="ti">📊</span><span class="tl">Summary</span></button>
   </div>
-  <div class="body-scroll"><div id="summary-content"></div></div>
-  <div class="tab-bar">
-    <button class="tab-btn" onclick="switchTab('dashboard')"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
-    <button class="tab-btn" onclick="switchTab('history')"><span class="tab-icon">📋</span><span class="tab-label">History</span></button>
-    <button class="tab-btn active" onclick="switchTab('summary')"><span class="tab-icon">📊</span><span class="tab-label">Summary</span></button>
+</div>
+
+<!-- DETAIL -->
+<div class="screen" id="screen-detail">
+  <div class="det-hdr">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div id="d-name" style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:4px"></div>
+    <div id="d-bal" class="det-bal">₹0</div>
+    <div id="d-sub" style="font-size:13px;color:#fbbf24;margin-top:4px"></div>
+    <div id="d-badge" style="margin-top:8px"></div>
+  </div>
+  <div class="body">
+    <div id="d-boxes"></div>
+    <div class="g2" id="d-info" style="margin-bottom:18px"></div>
+    <div class="fr" style="margin-bottom:18px">
+      <button class="btn btn-success" style="flex:1.5" onclick="openPayModal()">💳 Payment ചേർക്കുക</button>
+      <button class="btn btn-outline btn-sm" style="flex:1" onclick="toggleSched()">📅 Schedule</button>
+    </div>
+    <div id="sched-section" style="display:none">
+      <div class="card" style="overflow-x:auto">
+        <div class="sec-title">Repayment Schedule</div>
+        <table class="stbl" id="sched-tbl">
+          <thead><tr><th>#</th><th>Date</th><th style="color:#dc2626">പലിശ</th><th style="color:#2563eb">മുതൽ</th><th>ബാക്കി</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec-title">Payment History</div>
+      <div id="d-history"></div>
+    </div>
   </div>
 </div>
 
 <!-- PAY MODAL -->
-<div class="modal-overlay" id="pay-modal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-title">💳 Payment ചേർക്കുക</div>
-    <div id="pay-loan-info" style="background:#f8fafc;border-radius:12px;padding:14px;margin-bottom:18px;font-size:14px;"></div>
-    <div class="form-group">
-      <label class="form-label">Payment Date</label>
-      <input class="form-input" type="date" id="pay-date" oninput="updateBreakdown()">
+<div class="overlay" id="pay-modal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="mtitle">💳 Payment ചേർക്കുക</div>
+    <div class="fg"><label class="fl">Payment Date</label>
+      <input class="fi" type="date" id="p-date" oninput="updateBD()"></div>
+    <div id="p-preview" style="border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:600"></div>
+    <div class="fg"><label class="fl">Payment തുക (₹)</label>
+      <input class="fi" type="number" id="p-amt" placeholder="ഉദാ: 50000" oninput="updateBD()"></div>
+    <div class="fg"><label class="fl">Note (optional)</label>
+      <input class="fi" type="text" id="p-note" placeholder="ഉദാ: July payment"></div>
+    <div id="p-bdown" style="display:none" class="bdown">
+      <div class="bdown-title">💰 Breakdown</div>
+      <div id="bd-open-row" class="bdown-row" style="display:none"><span style="color:#7c3aed">📌 മുൻ കാല പലിശ</span><span id="bd-open">₹0</span></div>
+      <div id="bd-month-row" class="bdown-row" style="display:none"><span style="color:#f59e0b">📅 <span id="bd-months">0</span> മാസം പലിശ</span><span id="bd-int">₹0</span></div>
+      <div class="bdown-row"><span style="color:#6366f1">🏦 മുതൽ</span><span id="bd-prin">₹0</span></div>
+      <div class="bdown-total"><span>ശേഷം ബാക്കി</span><span id="bd-rem">₹0</span></div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Payment തുക (₹)</label>
-      <input class="form-input" type="number" id="pay-amount" placeholder="ഉദാ: 50000" oninput="updateBreakdown()">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Note (optional)</label>
-      <input class="form-input" type="text" id="pay-note" placeholder="ഉദാ: July payment">
-    </div>
-    <div id="pay-breakdown" class="breakdown-box" style="display:none;">
-      <div class="breakdown-title">💰 Breakdown</div>
-      <div class="breakdown-row"><span style="color:#94a3b8;font-size:13px">കഴിഞ്ഞ payment മുതൽ ദിവസങ്ങൾ</span><span id="bd-days" style="font-weight:700;color:#1e293b"></span></div>
-      <div style="border-top:1px solid #86efac;margin:8px 0;"></div>
-      <div class="breakdown-row"><span style="color:#f59e0b">കൂടിയ പലിശ</span><span id="bd-interest" style="font-weight:700;"></span></div>
-      <div class="breakdown-row"><span style="color:#6366f1">Principal (balance കുറയും)</span><span id="bd-principal" style="font-weight:700;"></span></div>
-      <div style="border-top:1px solid #86efac;margin-top:8px;padding-top:8px;" class="breakdown-row">
-        <strong>ശേഷം balance</strong>
-        <strong id="bd-remaining" style="color:#059669;font-size:16px;"></strong>
-      </div>
-    </div>
-    <div class="flex-row">
+    <div class="fr">
       <button class="btn btn-ghost" onclick="hideModal('pay-modal')">Cancel</button>
-      <button class="btn btn-success" onclick="submitPayment()">✓ Save Payment</button>
+      <button class="btn btn-success" onclick="submitPay()">✓ Save Payment</button>
     </div>
   </div>
 </div>
 
 <!-- ADD LOAN MODAL -->
-<div class="modal-overlay" id="add-loan-modal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-title">🏦 പുതിയ ലോൺ</div>
-    <div class="form-group"><label class="form-label">ലോൺ പേര്</label><input class="form-input" id="nl-name" placeholder="ഉദാ: Home Loan"></div>
-    <div class="form-group"><label class="form-label">ആരംഭ തുക / ഇന്നത്തെ Balance (₹)</label><input class="form-input" type="number" id="nl-balance" placeholder="1457142"></div>
-    <div class="form-group"><label class="form-label">ആരംഭ / അവസാന Payment തീയതി</label><input class="form-input" type="date" id="nl-start"></div>
-    <div class="form-group"><label class="form-label">പലിശ % (Annual)</label><input class="form-input" type="number" id="nl-rate" value="12"></div>
-    <div class="flex-row">
-      <button class="btn btn-ghost" onclick="hideModal('add-loan-modal')">Cancel</button>
+<div class="overlay" id="add-modal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="mtitle">🏦 പുതിയ ലോൺ ചേർക്കുക</div>
+    <div class="fg"><label class="fl">ലോൺ പേര്</label><input class="fi" id="nl-name" placeholder="ഉദാ: Home Loan"></div>
+    <div class="fg"><label class="fl">Principal (ബാക്കി മുതൽ ₹)</label><input class="fi" type="number" id="nl-bal" placeholder="1457142"></div>
+    <div class="fg"><label class="fl">മുൻ കാല pending പലിശ ₹ (ഇല്ലെങ്കിൽ 0)</label><input class="fi" type="number" id="nl-oint" placeholder="0" value="0"></div>
+    <div class="fg"><label class="fl">ഈ date മുതൽ interest start (Status check date)</label><input class="fi" type="date" id="nl-start"></div>
+    <div class="fg"><label class="fl">Rate % (Annual)</label><input class="fi" type="number" id="nl-rate" value="12"></div>
+    <div class="fg"><label class="fl">EMI (₹/മാസം)</label><input class="fi" type="number" id="nl-emi" placeholder="30000"></div>
+    <div class="fr">
+      <button class="btn btn-ghost" onclick="hideModal('add-modal')">Cancel</button>
       <button class="btn btn-primary" onclick="addLoan()">✓ ചേർക്കുക</button>
     </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'familyloan_v3';
-let loans = [];
-let currentLoanId = null;
-let currentTab = 'dashboard';
+const KEY = 'fl_v8';
+let loans = [], curId = null, curTab = 'dashboard', schedOpen = false;
 
-const defaultLoans = [
-  { id:1, name:'ലോൺ 1 (വലിയ ലോൺ)', balance:1457142, rate:12, lastPaymentDate:'2026-04-06', payments:[], active:true },
-  { id:2, name:'ലോൺ 2 (ചെറിയ ലോൺ)', balance:301222, rate:12, lastPaymentDate:'2026-04-06', payments:[], active:true }
+// ✅ VERIFIED DATA from bank receipt (April 6, 2026)
+const DEFAULTS = [
+  {
+    id:1, name:'ലോൺ 1 (വലിയ ലോൺ)',
+    balance:1457142,        // Principal outstanding
+    openingInterest:125059, // Pending interest as of Apr 6 (124574 + 485 penal)
+    startDate:'2026-04-06', // Status check date - interest accrues from here
+    rate:12, emi:30000,
+    payments:[], active:true
+  },
+  {
+    id:2, name:'ലോൺ 2 (ചെറിയ ലോൺ)',
+    balance:280046,         // Principal outstanding
+    openingInterest:21176,  // Pending interest (230 days from 20/08/2025)
+    startDate:'2026-04-06', // Status check date
+    rate:12, emi:20000,
+    payments:[], active:true
+  }
 ];
 
-function load(){
-  try{ const d=localStorage.getItem(STORAGE_KEY); loans=d?JSON.parse(d):JSON.parse(JSON.stringify(defaultLoans)); }
-  catch{ loans=JSON.parse(JSON.stringify(defaultLoans)); }
+function load() {
+  try {
+    const d = localStorage.getItem(KEY);
+    loans = d ? JSON.parse(d) : JSON.parse(JSON.stringify(DEFAULTS));
+    loans.forEach(l => {
+      if (l.openingInterest === undefined) l.openingInterest = 0;
+      if (!l.payments) l.payments = [];
+    });
+  } catch { loans = JSON.parse(JSON.stringify(DEFAULTS)); }
 }
-function save(){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(loans)); }catch{} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(loans)); } catch {} }
 
-function fmt(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
-function fmtDate(d){ if(!d) return '-'; return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
-function today(){ return new Date().toISOString().split('T')[0]; }
+// ── Helpers ──
+const fmt = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const fmtD = d => d ? new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '-';
+const fmtM = d => d ? new Date(d+'T00:00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'}) : '-';
+const tod = () => new Date().toISOString().split('T')[0];
 
-// Core: days between two date strings
-function daysBetween(d1, d2){
-  const ms = new Date(d2) - new Date(d1);
-  return Math.max(0, Math.floor(ms/86400000));
+function days(d1, d2) {
+  return Math.max(0, Math.floor((new Date(d2+'T00:00:00') - new Date(d1+'T00:00:00')) / 86400000));
+}
+function months(d1, d2) {
+  const f = new Date(d1+'T00:00:00'), t = new Date(d2+'T00:00:00');
+  let m = (t.getFullYear()-f.getFullYear())*12 + (t.getMonth()-f.getMonth());
+  if (t.getDate() < f.getDate()) m--;
+  return Math.max(0, m);
 }
 
-// Accrued interest = balance * (annual_rate/100) / 365 * days
-function accruedInterest(loan, toDate){
-  const days = daysBetween(loan.lastPaymentDate, toDate || today());
-  if(days <= 0) return { interest:0, days:0 };
-  const interest = Math.round(loan.balance * (loan.rate/100) / 365 * days);
-  return { interest, days };
+function lastDate(loan) {
+  return loan.payments.length ? loan.payments[loan.payments.length-1].date : loan.startDate;
+}
+function mInt(loan) { return Math.round(loan.balance * loan.rate / 100 / 12); }
+
+// ── Core interest calculation ──
+// Rule: even 1 day passed = this month's interest is DUE
+// Opening interest = pending interest before app setup (cleared in first payment)
+function calcInt(loan, payDate) {
+  const last = lastDate(loan);
+  const dt = payDate || tod();
+  const d = days(last, dt);
+  const m = months(last, dt);
+  const mi = mInt(loan);
+  // 0 days = just paid, no interest
+  // 1+ days = at minimum 1 month interest due
+  const mDue = d > 0 ? Math.max(1, m) : 0;
+  const newInt = Math.round(mi * mDue);
+  // Opening interest only applies before first payment
+  const openInt = loan.payments.length === 0 ? (loan.openingInterest || 0) : 0;
+  return {
+    days: d, months: mDue, completedMonths: m,
+    isCurrentMonth: mDue === 1 && m === 0, // within first month
+    newInt, openInt,
+    total: openInt + newInt
+  };
 }
 
-function status(loan){
-  if(!loan.active || loan.balance<=0) return 'closed';
-  return 'active';
+// ── Project closure date ──
+function closure(loan) {
+  if (!loan.active || loan.balance <= 0) return null;
+  const {total: pendingInt} = calcInt(loan);
+  let bal = loan.balance + pendingInt; // start with current total due
+  const mr = loan.rate / 100 / 12;
+  const emi = loan.emi;
+  if (emi <= bal * mr) return { months: -1 }; // EMI too low
+  let m = 0;
+  while (bal > 0 && m < 600) {
+    m++;
+    const int = bal * mr;
+    const prin = Math.min(emi - int, bal);
+    bal = Math.max(0, bal - prin);
+  }
+  const dt = new Date(tod()+'T00:00:00');
+  dt.setMonth(dt.getMonth() + m);
+  return {
+    months: m,
+    date: dt.toISOString().split('T')[0],
+    totalPay: Math.round(m * emi),
+    totalInt: Math.round(m * emi - loan.balance)
+  };
 }
 
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='toast show';
-  setTimeout(()=>t.className='toast',3000);
-}
-function showModal(id){ document.getElementById(id).classList.add('open'); }
-function hideModal(id){ document.getElementById(id).classList.remove('open'); }
+// ── UI helpers ──
+const toast = msg => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show';
+  setTimeout(() => t.className = 'toast', 3200);
+};
+const showModal = id => document.getElementById(id).classList.add('open');
+const hideModal = id => document.getElementById(id).classList.remove('open');
 
-function switchTab(tab){
-  currentTab=tab;
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+function switchTab(tab) {
+  curTab = tab;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
   document.getElementById('screen-'+tab).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b=>{
-    if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+tab+"'")) b.classList.add('active');
+  document.querySelectorAll('.tab').forEach(b => {
+    if (b.getAttribute('onclick') === `switchTab('${tab}')`) b.classList.add('active');
   });
-  if(tab==='history') renderHistory();
-  if(tab==='summary') renderSummary();
+  if (tab === 'status') renderStatus();
+  if (tab === 'history') renderHistory();
+  if (tab === 'summary') renderSummary();
 }
 
-function renderDashboard(){
+// ── Dashboard ──
+function renderDash() {
   const totalBal = loans.filter(l=>l.active).reduce((s,l)=>s+l.balance,0);
   const totalPaid = loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.amount,0),0);
-  const totalAccrued = loans.filter(l=>l.active).reduce((s,l)=>s+accruedInterest(l).interest,0);
+  const totalEMI = loans.filter(l=>l.active).reduce((s,l)=>s+l.emi,0);
+  document.getElementById('s-bal').textContent = fmt(totalBal);
+  document.getElementById('s-paid').textContent = fmt(totalPaid);
+  document.getElementById('s-emi').textContent = fmt(totalEMI);
 
-  document.getElementById('total-balance').textContent=fmt(totalBal);
-  document.getElementById('total-paid').textContent=fmt(totalPaid);
-  document.getElementById('total-accrued').textContent=fmt(totalAccrued);
-  document.getElementById('total-accrued').style.color=totalAccrued>0?'#fbbf24':'#94a3b8';
+  // Alerts
+  const al = document.getElementById('alerts');
+  al.innerHTML = '';
+  loans.filter(l=>l.active).forEach(loan => {
+    const ci = calcInt(loan);
+    if (ci.days === 0) return;
+    const over = ci.completedMonths >= 1;
+    al.innerHTML += `
+    <div class="${over?'alert-over':'alert-due'}">
+      <div class="alert-title" style="color:${over?'#dc2626':'#92400e'}">
+        ${over?'⚠️':'📅'} ${loan.name} — ${over?ci.months+' മാസം overdue!':'ഈ മാസം EMI due'}
+      </div>
+      <div class="alert-text" style="color:${over?'#991b1b':'#78350f'}">
+        ${ci.openInt>0?'📌 മുൻ കാല പലിശ: '+fmt(ci.openInt)+'<br>':''}
+        📅 ഈ മാസം പലിശ: ${fmt(ci.newInt)}<br>
+        💳 ഇന്ന് അടക്കേണ്ടത്: ${fmt(ci.total + loan.emi - ci.newInt)}
+      </div>
+      <button class="btn btn-${over?'danger':'success'} btn-sm" style="margin-top:10px;width:100%" onclick="openDirect(${loan.id})">
+        💳 Payment ചേർക്കുക →
+      </button>
+    </div>`;
+  });
 
-  const container=document.getElementById('loan-cards');
-  container.innerHTML='';
-
-  if(loans.length===0){
-    container.innerHTML='<div class="empty-state"><div class="empty-icon">🏦</div><div class="empty-title">ലോൺ ഇല്ല</div></div>';
+  // Loan cards
+  const con = document.getElementById('loan-cards');
+  con.innerHTML = '';
+  if (!loans.length) {
+    con.innerHTML = '<div style="text-align:center;padding:50px 20px;color:#94a3b8"><div style="font-size:48px;margin-bottom:12px">🏦</div><div style="font-weight:700;font-size:16px">ലോൺ ഇല്ല<br>+ ചേർക്കുക</div></div>';
     return;
   }
+  loans.forEach(loan => {
+    const ci = calcInt(loan);
+    const cl = closure(loan);
+    const isClosed = !loan.active || loan.balance <= 0;
+    const paidPrin = loan.payments.reduce((s,p)=>s+p.principal,0);
+    const orig = loan.balance + paidPrin;
+    const pct = orig > 0 ? Math.min(100, paidPrin/orig*100) : 100;
+    const mi = mInt(loan);
 
-  loans.forEach(loan=>{
-    const st=status(loan);
-    const {interest,days}=accruedInterest(loan);
-    const totalDue=loan.balance+interest;
-    const paidSoFar=loan.payments.reduce((s,p)=>s+p.principal,0);
-    const origBalance=loan.balance+paidSoFar;
-    const pct=origBalance>0?Math.min(100,paidSoFar/origBalance*100):100;
-
-    const div=document.createElement('div');
-    div.className='card';
-    div.onclick=()=>openDetail(loan.id);
-    div.innerHTML=`
-      <div class="card-header">
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.onclick = () => openDetail(loan.id);
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
         <div>
-          <div class="loan-name">${loan.name}</div>
-          <span class="badge ${st==='closed'?'badge-gray':'badge-green'}">${st==='closed'?'✓ Closed':'Active'}</span>
+          <div style="font-size:16px;font-weight:700;margin-bottom:5px">${loan.name}</div>
+          <span class="badge ${isClosed?'bgr':ci.completedMonths>=1?'br':ci.days>0?'by':'bg'}">
+            ${isClosed?'✓ Closed':ci.completedMonths>=1?'⚠️ Overdue':ci.days>0?'📅 Due':'✅ Active'}
+          </span>
         </div>
         <div style="text-align:right">
-          <div class="loan-balance" style="color:${st==='closed'?'#10b981':'#1e293b'}">${fmt(loan.balance)}</div>
-          <div class="loan-bal-label">ബാക്കി (Principal)</div>
+          <div style="font-size:22px;font-weight:800;color:${isClosed?'#10b981':'#1e293b'}">${fmt(loan.balance)}</div>
+          <div style="font-size:11px;color:#64748b">Principal ബാക്കി</div>
+          ${ci.openInt>0&&!isClosed?`<div style="font-size:11px;color:#7c3aed">+${fmt(ci.openInt)} pending</div>`:''}
         </div>
       </div>
-      <div class="progress-bar"><div class="progress-fill${st==='closed'?' done':''}" style="width:${pct}%"></div></div>
-      <div class="mini-grid">
-        <div class="mini-box">
-          <div class="mini-label">Rate</div>
-          <div class="mini-value">${loan.rate}% / year</div>
-        </div>
-        <div class="mini-box">
-          <div class="mini-label">അവസാന payment</div>
-          <div class="mini-value" style="font-size:12px">${fmtDate(loan.lastPaymentDate)}</div>
-        </div>
+      <div class="prog"><div class="pf${isClosed?' done':''}" style="width:${pct}%"></div></div>
+      <div class="g3">
+        <div class="mb"><div class="ml">EMI</div><div class="mv">${fmt(loan.emi)}</div></div>
+        <div class="mb"><div class="ml">മാസ പലിശ</div><div class="mv" style="color:#f59e0b">${fmt(mi)}</div></div>
+        <div class="mb"><div class="ml">Months left</div><div class="mv" style="color:#6366f1">${cl&&cl.months>0?cl.months:'—'}</div></div>
       </div>
-      ${interest>0&&st!=='closed'?`
-      <div class="interest-alert">
-        <div class="interest-alert-title">⏱ ${days} ദിവസം കൊണ്ട് കൂടിയ പലിശ</div>
-        <div class="interest-alert-row"><span>Accrued Interest</span><span style="font-weight:700">${fmt(interest)}</span></div>
-        <div class="interest-alert-row" style="font-weight:700;margin-top:4px;font-size:14px;"><span>ഇന്ന് അടക്കേണ്ടത്</span><span style="color:#92400e">${fmt(totalDue)}</span></div>
-      </div>`:''}
+      ${!isClosed&&cl&&cl.months>0?`
+      <div style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);border-radius:12px;padding:12px;margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:11px;font-weight:800;color:#5b21b6;text-transform:uppercase;letter-spacing:1px">🎯 Closure</div>
+          <div style="font-size:17px;font-weight:900;color:#4c1d95;margin-top:2px">${fmtM(cl.date)}</div>
+          <div style="font-size:12px;color:#7c3aed">${cl.months} മാസം ബാക്കി</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:#7c3aed">ആകെ പലിശ</div>
+          <div style="font-size:14px;font-weight:700;color:#dc2626">${fmt(cl.totalInt)}</div>
+        </div>
+      </div>`:isClosed?`<div style="text-align:center;padding:10px;color:#10b981;font-weight:800">🎉 ലോൺ തീർന്നു!</div>`:''}
     `;
-    container.appendChild(div);
+    con.appendChild(div);
   });
 }
 
-function openDetail(id){
-  currentLoanId=id;
-  const loan=loans.find(l=>l.id===id);
-  if(!loan) return;
-  const st=status(loan);
-  const {interest,days}=accruedInterest(loan);
-  const paidPrincipal=loan.payments.reduce((s,p)=>s+p.principal,0);
+function openDirect(id) { openDetail(id); openPayModal(); }
 
-  document.getElementById('detail-name').textContent=loan.name;
-  document.getElementById('detail-balance').textContent=fmt(loan.balance);
-  document.getElementById('detail-principal').textContent=`Principal balance · ${loan.rate}% per annum`;
-  document.getElementById('detail-badge').innerHTML=`<span class="badge ${st==='closed'?'badge-gray':'badge-green'}">${st==='closed'?'✓ Closed':'Active'}</span>`;
+// ── Loan Detail ──
+function openDetail(id) {
+  curId = id; schedOpen = false;
+  document.getElementById('sched-section').style.display = 'none';
+  const loan = loans.find(l=>l.id===id); if (!loan) return;
+  const ci = calcInt(loan);
+  const cl = closure(loan);
+  const isClosed = !loan.active || loan.balance <= 0;
+  const mi = mInt(loan);
 
-  // Accrued banner
-  const banner=document.getElementById('detail-accrued-banner');
-  if(interest>0 && st!=='closed'){
-    banner.innerHTML=`
-      <div class="accrued-banner">
-        <div class="accrued-title">⏱ ${days} ദിവസം (${fmtDate(loan.lastPaymentDate)} മുതൽ ഇന്ന് വരെ)</div>
-        <div class="accrued-row"><span>Balance</span><span>${fmt(loan.balance)}</span></div>
-        <div class="accrued-row"><span>Accrued Interest (${loan.rate}%/yr)</span><span>+ ${fmt(interest)}</span></div>
-        <div class="accrued-total"><span>ഇന്ന് അടക്കേണ്ടത്</span><span>${fmt(loan.balance+interest)}</span></div>
+  document.getElementById('d-name').textContent = loan.name;
+  document.getElementById('d-bal').textContent = fmt(loan.balance);
+  document.getElementById('d-sub').textContent = isClosed ? '✅ ലോൺ തീർന്നു!' :
+    ci.days === 0 ? '✅ ഇന്ന് interest ₹0!' :
+    ci.completedMonths >= 1 ? `⚠️ ${ci.months} മാസം overdue — ${fmt(ci.total)} pending` :
+    `📅 ഈ മാസം due — ${fmt(ci.total)}`;
+  document.getElementById('d-badge').innerHTML = `<span class="badge ${isClosed?'bgr':ci.completedMonths>=1?'br':ci.days>0?'by':'bg'}">${isClosed?'✓ Closed':ci.completedMonths>=1?'⚠️ Overdue':ci.days>0?'📅 Due':'✅ Active'}</span>`;
+
+  // Boxes
+  let html = '';
+
+  // Opening interest box (only if not yet paid)
+  if (ci.openInt > 0 && !isClosed) {
+    html += `<div class="open-int-box">
+      <div class="open-int-title">📌 മുൻ കാല pending പലിശ</div>
+      <div class="open-int-row"><span>April 6, 2026 വരെ accrued</span><span>${fmt(ci.openInt)}</span></div>
+      <div class="open-int-total"><span>ആദ്യ payment-ൽ ഇത് ആദ്യം clear ആകും</span><span>${fmt(ci.openInt)}</span></div>
+    </div>`;
+  }
+
+  // This month / overdue interest
+  if (!isClosed && ci.days > 0) {
+    if (ci.completedMonths >= 1) {
+      html += `<div class="int-due-box">
+        <div class="int-due-title">⚠️ ${ci.months} മാസം Overdue</div>
+        <div class="int-row" style="color:#78350f"><span>${ci.months} × ${fmt(mi)}</span><span>${fmt(ci.newInt)}</span></div>
+        <div class="int-total" style="color:#dc2626"><span>Total pending (interest)</span><span>${fmt(ci.total)}</span></div>
       </div>`;
-  } else { banner.innerHTML=''; }
+    } else {
+      html += `<div class="int-due-box" style="border-color:#fcd34d">
+        <div class="int-due-title" style="color:#92400e">📅 ഈ മാസം Due</div>
+        <div class="int-row" style="color:#78350f"><span>ഈ മാസം പലിശ</span><span style="color:#dc2626">${fmt(mi)}</span></div>
+        <div class="int-row" style="color:#78350f"><span>Last payment</span><span>${fmtD(lastDate(loan))}</span></div>
+        <div class="int-total" style="color:#92400e"><span>ഇന്ന് EMI: ${fmt(loan.emi)} → Principal-ൽ</span><span>${fmt(Math.max(0,loan.emi-mi))}</span></div>
+      </div>`;
+    }
+  } else if (!isClosed && ci.days === 0) {
+    html += `<div class="ok-box"><div style="font-size:14px;font-weight:700;color:#166534">✅ ഇന്ന് payment ചെയ്തതിനാൽ interest ₹0!</div><div style="font-size:13px;color:#166534;margin-top:4px">Full amount Principal-ൽ ആകും</div></div>`;
+  }
 
-  document.getElementById('detail-info-grid').innerHTML=`
-    <div class="info-box"><div class="info-label">Principal Balance</div><div class="info-value" style="color:#ef4444">${fmt(loan.balance)}</div></div>
-    <div class="info-box"><div class="info-label">Accrued Interest</div><div class="info-value" style="color:#f59e0b">${fmt(interest)}</div></div>
-    <div class="info-box"><div class="info-label">Annual Rate</div><div class="info-value">${loan.rate}%</div></div>
-    <div class="info-box"><div class="info-label">Daily Interest</div><div class="info-value">${fmt(loan.balance*(loan.rate/100)/365)}/day</div></div>
-    <div class="info-box"><div class="info-label">അടച്ച Principal</div><div class="info-value" style="color:#10b981">${fmt(paidPrincipal)}</div></div>
-    <div class="info-box"><div class="info-label">Payments</div><div class="info-value">${loan.payments.length}</div></div>
-  `;
+  // Closure box
+  if (!isClosed && cl && cl.months > 0) {
+    html += `<div class="closure-box">
+      <div class="closure-title">🎯 ലോൺ എന്ന് തീരും?</div>
+      <div class="closure-date">${fmtM(cl.date)}</div>
+      <div class="closure-sub">${cl.months} മാസം | EMI: ${fmt(loan.emi)}/month</div>
+      <div class="g2">
+        <div class="closure-box" style="background:rgba(255,255,255,.6);border-radius:10px;padding:10px">
+          <div style="font-size:10px;color:#7c3aed">ബാക്കി Principal</div>
+          <div style="font-size:14px;font-weight:700;color:#4c1d95">${fmt(loan.balance)}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.6);border-radius:10px;padding:10px">
+          <div style="font-size:10px;color:#7c3aed">ആകെ പലിശ (estimate)</div>
+          <div style="font-size:14px;font-weight:700;color:#dc2626">${fmt(cl.totalInt)}</div>
+        </div>
+      </div>
+    </div>`;
+  } else if (!isClosed && cl && cl.months === -1) {
+    html += `<div class="alert-over"><div class="alert-title" style="color:#dc2626">⚠️ EMI too low!</div><div class="alert-text" style="color:#991b1b">മാസ പലിശ ${fmt(mi)} — EMI ${fmt(loan.emi)} — EMI കൂട്ടണം!</div></div>`;
+  } else if (isClosed) {
+    html += `<div class="ok-box" style="text-align:center"><div style="font-size:28px;margin-bottom:8px">🎉</div><div style="font-size:16px;font-weight:800;color:#166534">ലോൺ പൂർണ്ണമായി തീർന്നു!</div></div>`;
+  }
 
-  renderPaymentHistory(loan);
+  document.getElementById('d-boxes').innerHTML = html;
+
+  // Info grid
+  document.getElementById('d-info').innerHTML = [
+    {l:'Principal ബാക്കി', v:fmt(loan.balance)},
+    {l:'Rate', v:loan.rate+'% p.a.'},
+    {l:'Start Date', v:fmtD(loan.startDate)},
+    {l:'Last Payment', v:fmtD(lastDate(loan))},
+    {l:'EMI', v:fmt(loan.emi)},
+    {l:'Payments made', v:loan.payments.length},
+  ].map(i=>`<div class="ibox"><div class="ilbl">${i.l}</div><div class="ival">${i.v}</div></div>`).join('');
+
+  renderPayHist(loan);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-detail').classList.add('active');
 }
 
-function renderPaymentHistory(loan){
-  const list=document.getElementById('payment-history-list');
-  if(loan.payments.length===0){
-    list.innerHTML='<div style="text-align:center;padding:24px;color:#94a3b8;font-size:14px;">ഇതുവരെ payment ഇല്ല</div>';
-    return;
+function renderPayHist(loan) {
+  const el = document.getElementById('d-history');
+  if (!loan.payments.length) {
+    el.innerHTML = '<div style="text-align:center;padding:24px;color:#94a3b8;font-size:14px">ഇതുവരെ payment ഇല്ല</div>'; return;
   }
-  list.innerHTML=[...loan.payments].reverse().map(p=>`
+  el.innerHTML = [...loan.payments].reverse().map(p=>`
     <div class="pay-item">
-      <div class="pay-amount-row">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
         <div>
-          <div class="pay-amount">+ ${fmt(p.amount)}</div>
-          <div class="pay-date">${fmtDate(p.date)}${p.note?' · '+p.note:''}</div>
+          <div style="font-size:16px;font-weight:800;color:#10b981">+${fmt(p.amount)}</div>
+          <div style="font-size:12px;color:#94a3b8">${fmtD(p.date)}${p.note?' · '+p.note:''}</div>
         </div>
-        <div style="text-align:right;font-size:12px;">
-          <div style="color:#f59e0b">Interest: ${fmt(p.interest)}</div>
+        <div style="text-align:right;font-size:12px">
+          ${(p.openInt||0)>0?`<div style="color:#7c3aed">മുൻ പലിശ: ${fmt(p.openInt)}</div>`:''}
+          ${p.months>0?`<div style="color:#f59e0b">പലിശ (${p.months}m): ${fmt(p.newInt||0)}</div>`:
+          p.openInt===0?`<div style="color:#10b981">പലിശ: ₹0 ✅</div>`:''}
           <div style="color:#6366f1">Principal: ${fmt(p.principal)}</div>
-          <div style="color:#94a3b8">${p.days} ദിവസം</div>
         </div>
       </div>
-      <div style="font-size:11px;color:#64748b;background:#f8fafc;border-radius:8px;padding:6px 10px;margin-top:6px;">
-        Balance: ${fmt(p.balanceBefore)} → <strong style="color:#10b981">${fmt(p.balanceAfter)}</strong>
-      </div>
-    </div>
-  `).join('');
+      <div style="font-size:11px;color:#64748b">Balance after: ${fmt(p.balanceAfter)}</div>
+    </div>`).join('');
 }
 
-function goBack(){
+function toggleSched() {
+  schedOpen = !schedOpen;
+  document.getElementById('sched-section').style.display = schedOpen?'block':'none';
+  if (schedOpen) renderSched();
+}
+
+function renderSched() {
+  const loan = loans.find(l=>l.id===curId); if (!loan) return;
+  const ci = calcInt(loan);
+  let bal = loan.balance + ci.total; // include pending interest
+  const mr = loan.rate/100/12;
+  const tbody = document.querySelector('#sched-tbl tbody');
+  tbody.innerHTML = '';
+  let d = new Date(tod()+'T00:00:00');
+  for (let m=1; m<=360&&bal>0; m++) {
+    const int = Math.round(bal*mr);
+    const prin = Math.min(loan.emi-int, bal);
+    if (prin<=0) { tbody.innerHTML+=`<tr><td colspan="5" style="text-align:center;color:#ef4444;padding:10px">EMI too low!</td></tr>`; break; }
+    bal = Math.max(0,bal-prin);
+    const ds = d.toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+    tbody.innerHTML+=`<tr><td style="color:#94a3b8">${m}</td><td>${ds}</td><td style="color:#dc2626">₹${int.toLocaleString('en-IN')}</td><td style="color:#2563eb">₹${prin.toLocaleString('en-IN')}</td><td style="${bal===0?'color:#10b981;font-weight:700':''}">₹${bal.toLocaleString('en-IN')}</td></tr>`;
+    d.setMonth(d.getMonth()+1);
+  }
+}
+
+function goBack() {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+currentTab).classList.add('active');
-  renderDashboard();
+  document.getElementById('screen-'+curTab).classList.add('active');
+  renderDash();
 }
 
-function openPayModal(){
-  const loan=loans.find(l=>l.id===currentLoanId);
-  if(!loan) return;
-  const payDate=today();
-  document.getElementById('pay-date').value=payDate;
-  document.getElementById('pay-amount').value='';
-  document.getElementById('pay-note').value='';
-  document.getElementById('pay-breakdown').style.display='none';
-
-  const {interest,days}=accruedInterest(loan,payDate);
-  document.getElementById('pay-loan-info').innerHTML=`
-    <div style="margin-bottom:4px">Principal Balance: <strong style="color:#dc2626">${fmt(loan.balance)}</strong></div>
-    <div style="margin-bottom:4px">Accrued Interest (${days} days): <strong style="color:#f59e0b">${fmt(interest)}</strong></div>
-    <div style="font-weight:700;color:#1e293b">ഇന്ന് clear ചെയ്യാൻ: <strong style="color:#312e81">${fmt(loan.balance+interest)}</strong></div>
-  `;
+// ── Payment Modal ──
+function openPayModal() {
+  const loan = loans.find(l=>l.id===curId); if (!loan) return;
+  document.getElementById('p-date').value = tod();
+  document.getElementById('p-amt').value = '';
+  document.getElementById('p-note').value = '';
+  document.getElementById('p-bdown').style.display = 'none';
+  updateBD();
   showModal('pay-modal');
 }
 
-function updateBreakdown(){
-  const loan=loans.find(l=>l.id===currentLoanId);
-  if(!loan) return;
-  const amt=parseFloat(document.getElementById('pay-amount').value)||0;
-  const payDate=document.getElementById('pay-date').value||today();
-  if(!amt){ document.getElementById('pay-breakdown').style.display='none'; return; }
+function updateBD() {
+  const loan = loans.find(l=>l.id===curId); if (!loan) return;
+  const dt = document.getElementById('p-date').value || tod();
+  const ci = calcInt(loan, dt);
+  const mi = mInt(loan);
 
-  const {interest,days}=accruedInterest(loan,payDate);
-  const intPaid=Math.min(amt,interest);
-  const prinPaid=Math.min(Math.max(0,amt-intPaid),loan.balance);
-  const remaining=Math.max(0,loan.balance-prinPaid);
-
-  document.getElementById('bd-days').textContent=days+' ദിവസം';
-  document.getElementById('bd-interest').textContent=fmt(intPaid)+(interest>amt?` (total: ${fmt(interest)})` :'');
-  document.getElementById('bd-principal').textContent=fmt(prinPaid);
-  document.getElementById('bd-remaining').textContent=fmt(remaining);
-  document.getElementById('pay-breakdown').style.display='block';
-
-  // Update modal info too
-  document.getElementById('pay-loan-info').innerHTML=`
-    <div style="margin-bottom:4px">Principal Balance: <strong style="color:#dc2626">${fmt(loan.balance)}</strong></div>
-    <div style="margin-bottom:4px">Accrued Interest (${days} days): <strong style="color:#f59e0b">${fmt(interest)}</strong></div>
-    <div style="font-weight:700;color:#1e293b">Full clear: <strong style="color:#312e81">${fmt(loan.balance+interest)}</strong></div>
-  `;
-}
-
-function submitPayment(){
-  const loan=loans.find(l=>l.id===currentLoanId);
-  if(!loan) return;
-  const amt=parseFloat(document.getElementById('pay-amount').value);
-  if(!amt||amt<=0){ showToast('ശരിയായ തുക നൽകുക'); return; }
-  const payDate=document.getElementById('pay-date').value||today();
-  const note=document.getElementById('pay-note').value;
-
-  if(new Date(payDate)<new Date(loan.lastPaymentDate)){
-    showToast('Payment date അവസാന payment-നേക്കാൾ പഴക്കമുള്ളത്!'); return;
+  // Preview message
+  const prev = document.getElementById('p-preview');
+  if (ci.days === 0) {
+    prev.style.cssText = 'background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:600;color:#166534';
+    prev.innerHTML = '✅ ഇന്ന് payment! Interest ₹0 — full amount principal-ൽ';
+  } else if (ci.openInt > 0) {
+    prev.style.cssText = 'background:#fdf4ff;border:1.5px solid #e879f9;border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:600;color:#7e22ce';
+    prev.innerHTML = `📌 മുൻ കാല: ${fmt(ci.openInt)} + 📅 ${ci.months}m: ${fmt(ci.newInt)} = <span style="color:#dc2626">${fmt(ci.total)}</span>`;
+  } else if (ci.completedMonths >= 1) {
+    prev.style.cssText = 'background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:600;color:#dc2626';
+    prev.innerHTML = `⚠️ ${ci.months} മാസം overdue — ${fmt(ci.newInt)} interest pending`;
+  } else {
+    prev.style.cssText = 'background:#fff7ed;border:1.5px solid #fcd34d;border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:600;color:#92400e';
+    prev.innerHTML = `📅 ഈ മാസം interest: ${fmt(mi)} | Suggested EMI: ${fmt(loan.emi)}`;
   }
 
-  const {interest,days}=accruedInterest(loan,payDate);
-  const intPaid=Math.min(amt,interest);
-  const prinPaid=Math.min(Math.max(0,amt-intPaid),loan.balance);
-  const newBalance=Math.max(0,loan.balance-prinPaid);
+  const amt = parseFloat(document.getElementById('p-amt').value)||0;
+  if (!amt) { document.getElementById('p-bdown').style.display='none'; return; }
 
-  const payment={ id:Date.now(), date:payDate, amount:amt, interest:intPaid, principal:prinPaid, days:days, balanceBefore:loan.balance, balanceAfter:newBalance, note };
-  loan.payments.push(payment);
-  loan.balance=newBalance;
-  loan.lastPaymentDate=payDate;
-  if(newBalance<=0) loan.active=false;
+  // Breakdown: opening → new interest → principal
+  let rem = amt;
+  const openPaid = Math.min(rem, ci.openInt); rem -= openPaid;
+  const intPaid = Math.min(rem, ci.newInt); rem -= intPaid;
+  const prinPaid = Math.min(rem, loan.balance);
+  const balAfter = Math.max(0, loan.balance - prinPaid);
 
-  save();
-  hideModal('pay-modal');
-  openDetail(currentLoanId);
-  showToast(newBalance===0?'🎉 ലോൺ തീർന്നു! Congratulations!':`Payment ${fmt(amt)} saved! Balance: ${fmt(newBalance)}`);
+  const or = document.getElementById('bd-open-row');
+  const mr2 = document.getElementById('bd-month-row');
+  or.style.display = ci.openInt>0?'flex':'none';
+  mr2.style.display = ci.newInt>0?'flex':'none';
+  document.getElementById('bd-open').textContent = fmt(openPaid);
+  document.getElementById('bd-months').textContent = ci.months;
+  document.getElementById('bd-int').textContent = fmt(intPaid);
+  document.getElementById('bd-prin').textContent = fmt(prinPaid);
+  document.getElementById('bd-rem').textContent = fmt(balAfter);
+  document.getElementById('p-bdown').style.display = 'block';
 }
 
-function addLoan(){
-  const name=document.getElementById('nl-name').value.trim();
-  const balance=parseFloat(document.getElementById('nl-balance').value);
-  const startDate=document.getElementById('nl-start').value;
-  const rate=parseFloat(document.getElementById('nl-rate').value)||12;
-  if(!name||!balance||!startDate){ showToast('Name, Balance, Date നൽകുക'); return; }
-  loans.push({ id:Date.now(), name, balance, rate, lastPaymentDate:startDate, payments:[], active:true });
-  save();
-  hideModal('add-loan-modal');
-  ['nl-name','nl-balance','nl-start'].forEach(id=>document.getElementById(id).value='');
+function submitPay() {
+  const loan = loans.find(l=>l.id===curId); if (!loan) return;
+  const amt = parseFloat(document.getElementById('p-amt').value);
+  if (!amt||amt<=0) { toast('ശരിയായ തുക നൽകുക'); return; }
+  const dt = document.getElementById('p-date').value||tod();
+  const note = document.getElementById('p-note').value;
+  const ci = calcInt(loan, dt);
+
+  let rem = amt;
+  const openPaid = Math.min(rem, ci.openInt); rem -= openPaid;
+  const intPaid = Math.min(rem, ci.newInt); rem -= intPaid;
+  const prinPaid = Math.min(rem, loan.balance);
+  const newBal = Math.max(0, loan.balance - prinPaid);
+
+  // Unpaid interest gets added to balance (capitalized)
+  const unpaidInt = ci.total - openPaid - intPaid;
+  loan.balance = newBal + unpaidInt;
+
+  // Clear opening interest after tracking it
+  if (openPaid > 0) loan.openingInterest = Math.max(0, (loan.openingInterest||0) - openPaid);
+
+  loan.payments.push({
+    id: Date.now(), date: dt, amount: amt, note,
+    months: ci.months, openInt: openPaid, newInt: intPaid,
+    principal: prinPaid, balanceAfter: newBal
+  });
+
+  if (loan.balance <= 0) { loan.balance = 0; loan.active = false; }
+  save(); hideModal('pay-modal'); openDetail(curId);
+  toast(loan.balance===0?'🎉 ലോൺ തീർന്നു!':
+    `${fmt(amt)} saved!${ci.days===0?' ₹0 interest ✅':''}`);
+}
+
+// ── Add Loan ──
+function addLoan() {
+  const name = document.getElementById('nl-name').value.trim();
+  const bal = parseFloat(document.getElementById('nl-bal').value);
+  const oint = parseFloat(document.getElementById('nl-oint').value)||0;
+  const start = document.getElementById('nl-start').value;
+  const rate = parseFloat(document.getElementById('nl-rate').value)||12;
+  const emi = parseFloat(document.getElementById('nl-emi').value)||0;
+  if (!name||!bal||!start) { toast('Name, Balance, Date നൽകുക'); return; }
+  loans.push({id:Date.now(),name,balance:bal,openingInterest:oint,startDate:start,rate,emi,payments:[],active:true});
+  save(); hideModal('add-modal');
+  ['nl-name','nl-bal','nl-start','nl-emi'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nl-oint').value='0';
   document.getElementById('nl-rate').value='12';
-  renderDashboard();
-  showToast('ലോൺ ചേർത്തു! ✓');
+  renderDash(); toast('ലോൺ ചേർത്തു! ✓');
 }
 
-function renderHistory(){
-  const container=document.getElementById('all-history');
-  const all=[];
-  loans.forEach(loan=>{ loan.payments.forEach(p=>all.push({...p,loanName:loan.name,loanId:loan.id})); });
+// ── Status Screen ──
+function renderStatus() {
+  const c = document.getElementById('status-content');
+  const active = loans.filter(l=>l.active);
+  const maxM = active.length ? Math.max(...active.map(l=>{const cl=closure(l);return cl&&cl.months>0?cl.months:0;})) : 0;
+  const closeAll = new Date(tod()+'T00:00:00');
+  closeAll.setMonth(closeAll.getMonth()+maxM);
+  const totalBal = active.reduce((s,l)=>s+l.balance,0);
+  const totalPending = active.reduce((s,l)=>s+calcInt(l).total,0);
+  const totalEMI = active.reduce((s,l)=>s+l.emi,0);
+
+  let html = active.length > 1 ? `
+  <div style="background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95);border-radius:20px;padding:20px;margin-bottom:16px;color:#fff">
+    <div style="font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">🎯 എല്ലാ ലോണും Clear ആകുന്ന Date</div>
+    <div style="font-size:26px;font-weight:900;margin-bottom:4px">${fmtM(closeAll.toISOString().split('T')[0])}</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.7)">${maxM} മാസം | ആകെ EMI: ${fmt(totalEMI)}/month</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px">
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:10px">
+        <div style="font-size:10px;color:rgba(255,255,255,.6)">ആകെ Principal</div>
+        <div style="font-size:15px;font-weight:800;color:#f87171">${fmt(totalBal)}</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:10px">
+        <div style="font-size:10px;color:rgba(255,255,255,.6)">Pending interest</div>
+        <div style="font-size:15px;font-weight:800;color:#fbbf24">${fmt(totalPending)}</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:10px">
+        <div style="font-size:10px;color:rgba(255,255,255,.6)">Payments</div>
+        <div style="font-size:15px;font-weight:800;color:#34d399">${loans.reduce((s,l)=>s+l.payments.length,0)}</div>
+      </div>
+    </div>
+  </div>` : '';
+
+  loans.forEach(loan => {
+    const ci = calcInt(loan);
+    const cl = closure(loan);
+    const isClosed = !loan.active || loan.balance <= 0;
+    const mi = mInt(loan);
+    const paidP = loan.payments.reduce((s,p)=>s+p.principal,0);
+    const orig = loan.balance + paidP;
+    const pct = orig > 0 ? Math.min(100,paidP/orig*100) : 100;
+
+    html += `<div class="card">
+      <div style="font-size:16px;font-weight:800;margin-bottom:6px">${loan.name}</div>
+      <span class="badge ${isClosed?'bgr':ci.completedMonths>=1?'br':ci.days>0?'by':'bg'}" style="margin-bottom:12px;display:inline-block">
+        ${isClosed?'✓ Closed':ci.completedMonths>=1?'⚠️ Overdue':ci.days>0?'📅 Due this month':'✅ Active'}
+      </span>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:4px"><span>Progress</span><span>${pct.toFixed(1)}%</span></div>
+      <div class="prog" style="margin-top:0"><div class="pf${isClosed?' done':''}" style="width:${pct}%"></div></div>
+
+      ${ci.openInt>0&&!isClosed?`
+      <div class="open-int-box" style="margin-top:12px">
+        <div class="open-int-title">📌 മുൻ കാല pending പലിശ</div>
+        <div class="open-int-total"><span>April 6 വരെ accrued</span><span>${fmt(ci.openInt)}</span></div>
+      </div>`:''} 
+
+      ${!isClosed&&ci.days>0?`
+      <div class="${ci.completedMonths>=1?'int-due-box':'int-due-box'}" style="margin-top:12px;border-color:${ci.completedMonths>=1?'#fca5a5':'#fcd34d'}">
+        <div class="int-due-title" style="color:${ci.completedMonths>=1?'#dc2626':'#92400e'}">
+          ${ci.completedMonths>=1?'⚠️ '+ci.months+' മാസം Overdue':'📅 ഈ മാസം Due'}
+        </div>
+        <div class="int-row" style="color:#78350f"><span>പലിശ</span><span style="color:#dc2626">${fmt(ci.newInt)}</span></div>
+        <div class="int-total" style="color:${ci.completedMonths>=1?'#dc2626':'#92400e'}">
+          <span>ഇന്ന് ആകെ due</span><span>${fmt(ci.total)}</span>
+        </div>
+      </div>`:!isClosed?`<div class="ok-box" style="margin-top:12px"><div style="color:#166534;font-weight:700;font-size:13px">✅ ഈ month interest ₹0!</div></div>`:''}
+
+      ${!isClosed&&cl&&cl.months>0?`
+      <div class="closure-box" style="margin-top:12px">
+        <div class="closure-title">🎯 Closure Date</div>
+        <div class="closure-date">${fmtM(cl.date)}</div>
+        <div class="closure-sub">${cl.months} മാസം × ${fmt(loan.emi)} = ${fmt(cl.totalPay)}</div>
+        <div class="g2" style="margin-top:10px">
+          <div style="background:rgba(255,255,255,.6);border-radius:10px;padding:10px">
+            <div style="font-size:10px;color:#7c3aed">Principal ബാക്കി</div>
+            <div style="font-size:14px;font-weight:700;color:#4c1d95">${fmt(loan.balance)}</div>
+          </div>
+          <div style="background:rgba(255,255,255,.6);border-radius:10px;padding:10px">
+            <div style="font-size:10px;color:#7c3aed">ആകെ interest</div>
+            <div style="font-size:14px;font-weight:700;color:#dc2626">${fmt(cl.totalInt)}</div>
+          </div>
+        </div>
+      </div>`:''} 
+      ${!isClosed?`<button class="btn btn-success" style="margin-top:12px;margin-bottom:0" onclick="openDirect(${loan.id})">💳 Payment ചേർക്കുക</button>`:''}
+    </div>`;
+  });
+  c.innerHTML = html;
+}
+
+// ── History ──
+function renderHistory() {
+  const c = document.getElementById('history-content');
+  const all = [];
+  loans.forEach(l=>l.payments.forEach(p=>all.push({...p,loanName:l.name,loanId:l.id})));
   all.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  if(all.length===0){
-    container.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Payment ഇല്ല</div></div>';
-    return;
+  if (!all.length) {
+    c.innerHTML='<div style="text-align:center;padding:50px;color:#94a3b8"><div style="font-size:48px;margin-bottom:12px">📋</div><div style="font-weight:700">ഇതുവരെ payments ഇല്ല</div></div>'; return;
   }
-  container.innerHTML=all.map(p=>`
+  c.innerHTML = all.map(p=>`
     <div class="card" onclick="openDetail(${p.loanId})">
       <div style="font-size:12px;color:#94a3b8;margin-bottom:6px">${p.loanName}</div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
-          <div style="font-size:18px;font-weight:800;color:#10b981">+ ${fmt(p.amount)}</div>
-          <div style="font-size:12px;color:#64748b">${fmtDate(p.date)}${p.note?' · '+p.note:''} · ${p.days} days</div>
+          <div style="font-size:18px;font-weight:800;color:#10b981">+${fmt(p.amount)}</div>
+          <div style="font-size:12px;color:#64748b">${fmtD(p.date)}${p.note?' · '+p.note:''}</div>
         </div>
-        <div style="text-align:right;font-size:13px;">
-          <div style="color:#f59e0b">Interest: ${fmt(p.interest)}</div>
+        <div style="text-align:right;font-size:12px">
+          ${(p.openInt||0)>0?`<div style="color:#7c3aed">മുൻ: ${fmt(p.openInt)}</div>`:''}
+          ${p.months>0?`<div style="color:#f59e0b">പലിശ(${p.months}m): ${fmt(p.newInt||0)}</div>`:
+          (p.openInt||0)===0?`<div style="color:#10b981">Interest: ₹0 ✅</div>`:''}
           <div style="color:#6366f1">Principal: ${fmt(p.principal)}</div>
         </div>
       </div>
-      <div style="font-size:11px;color:#64748b;margin-top:6px">Balance: ${fmt(p.balanceBefore)} → <strong>${fmt(p.balanceAfter)}</strong></div>
-    </div>
-  `).join('');
+      <div style="font-size:11px;color:#64748b;margin-top:6px">Balance: ${fmt(p.balanceAfter)}</div>
+    </div>`).join('');
 }
 
-function renderSummary(){
-  const container=document.getElementById('summary-content');
-  const totalBal=loans.filter(l=>l.active).reduce((s,l)=>s+l.balance,0);
-  const totalPaid=loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.amount,0),0);
-  const totalIntPaid=loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.interest,0),0);
-  const totalPrinPaid=loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.principal,0),0);
-  const totalAccrued=loans.filter(l=>l.active).reduce((s,l)=>s+accruedInterest(l).interest,0);
-
-  container.innerHTML=`
-    <div class="card">
-      <div class="section-title">Overall</div>
-      <div class="info-grid">
-        <div class="info-box"><div class="info-label">ആകെ ബാക്കി</div><div class="info-value" style="color:#ef4444">${fmt(totalBal)}</div></div>
-        <div class="info-box"><div class="info-label">ആകെ അടച്ചത്</div><div class="info-value" style="color:#10b981">${fmt(totalPaid)}</div></div>
-        <div class="info-box"><div class="info-label">Principal അടച്ചത്</div><div class="info-value" style="color:#6366f1">${fmt(totalPrinPaid)}</div></div>
-        <div class="info-box"><div class="info-label">Interest അടച്ചത്</div><div class="info-value" style="color:#f59e0b">${fmt(totalIntPaid)}</div></div>
-        <div class="info-box"><div class="info-label">Accrued (ഇന്ന്)</div><div class="info-value" style="color:#f59e0b">${fmt(totalAccrued)}</div></div>
-        <div class="info-box"><div class="info-label">Total Payments</div><div class="info-value">${loans.reduce((s,l)=>s+l.payments.length,0)}</div></div>
+// ── Summary ──
+function renderSummary() {
+  const c = document.getElementById('summary-content');
+  const totalBal = loans.filter(l=>l.active).reduce((s,l)=>s+l.balance,0);
+  const totalPaid = loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.amount,0),0);
+  const totalIntPaid = loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+(p.openInt||0)+(p.newInt||0),0),0);
+  const totalPrinPaid = loans.reduce((s,l)=>s+l.payments.reduce((ss,p)=>ss+p.principal,0),0);
+  c.innerHTML = `
+  <div class="card">
+    <div class="sec-title">ആകെ</div>
+    <div class="g2">
+      <div class="ibox"><div class="ilbl">ആകെ ബാക്കി</div><div class="ival" style="color:#ef4444">${fmt(totalBal)}</div></div>
+      <div class="ibox"><div class="ilbl">ആകെ അടച്ചത്</div><div class="ival" style="color:#10b981">${fmt(totalPaid)}</div></div>
+      <div class="ibox"><div class="ilbl">Interest അടച്ചത്</div><div class="ival" style="color:#f59e0b">${fmt(totalIntPaid)}</div></div>
+      <div class="ibox"><div class="ilbl">Principal അടച്ചത്</div><div class="ival" style="color:#6366f1">${fmt(totalPrinPaid)}</div></div>
+    </div>
+  </div>
+  ${loans.map(loan=>{
+    const paidP = loan.payments.reduce((s,p)=>s+p.principal,0);
+    const orig = loan.balance+paidP;
+    const pct = orig>0?Math.min(100,paidP/orig*100):100;
+    const cl = closure(loan);
+    const ci = calcInt(loan);
+    return `<div class="card">
+      <div style="font-size:16px;font-weight:700;margin-bottom:10px">${loan.name}</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:4px"><span>${pct.toFixed(1)}% completed</span><span>${loan.payments.length} payments</span></div>
+      <div class="prog" style="margin-top:0"><div class="pf${!loan.active?' done':''}" style="width:${pct}%"></div></div>
+      <div class="g2" style="margin-top:12px">
+        <div class="ibox"><div class="ilbl">Principal ബാക്കി</div><div class="ival" style="color:#ef4444">${fmt(loan.balance)}</div></div>
+        <div class="ibox"><div class="ilbl">Pending interest</div><div class="ival" style="color:#f59e0b">${fmt(ci.total)}</div></div>
+        <div class="ibox"><div class="ilbl">Closure</div><div class="ival" style="color:#5b21b6;font-size:13px">${cl&&cl.months>0?fmtM(cl.date):'—'}</div></div>
+        <div class="ibox"><div class="ilbl">Months left</div><div class="ival">${cl&&cl.months>0?cl.months:'—'}</div></div>
       </div>
-    </div>
-    ${loans.map(loan=>{
-      const {interest,days}=accruedInterest(loan);
-      const paidPrin=loan.payments.reduce((s,p)=>s+p.principal,0);
-      const orig=loan.balance+paidPrin;
-      const pct=orig>0?Math.min(100,paidPrin/orig*100):100;
-      return `<div class="card">
-        <div style="font-size:16px;font-weight:700;margin-bottom:10px">${loan.name}</div>
-        <div class="progress-bar"><div class="progress-fill${!loan.active?' done':''}" style="width:${pct}%"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin:6px 0 12px">
-          <span>${pct.toFixed(1)}% paid</span><span>${loan.payments.length} payments</span>
-        </div>
-        <div class="mini-grid-3">
-          <div class="mini-box"><div class="mini-label">Balance</div><div class="mini-value" style="color:#ef4444">${fmt(loan.balance)}</div></div>
-          <div class="mini-box"><div class="mini-label">Accrued</div><div class="mini-value" style="color:#f59e0b">${fmt(interest)}</div></div>
-          <div class="mini-box"><div class="mini-label">${days} days</div><div class="mini-value" style="font-size:12px">${fmtDate(loan.lastPaymentDate)}</div></div>
-        </div>
-      </div>`;
-    }).join('')}
-  `;
+    </div>`;
+  }).join('')}`;
 }
 
-document.querySelectorAll('.modal-overlay').forEach(o=>{
-  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
-});
-
-if(window.navigator.standalone) document.getElementById('install-banner').style.display='none';
-
+// Init
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 load();
-renderDashboard();
+renderDash();
 </script>
 </body>
 </html>
