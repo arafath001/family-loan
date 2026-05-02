@@ -325,6 +325,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 /* ── Preview Box ── */
 .preview-box { border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
 </style>
+<style id="theme-override"></style>
 </head>
 <body>
 
@@ -534,7 +535,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 </div>
 
 <script>
-const KEY = 'fl_v14';
+const KEY = 'fl_v15';
 let loans = [], curId = null, curTab = 'dashboard', schedOpen = false;
 
 const DEFAULTS = [
@@ -1113,15 +1114,118 @@ function applyTheme(theme) {
   currentTheme = theme;
   const t = THEMES[theme];
   const root = document.documentElement;
-  // Inject each CSS variable directly on :root via style attribute
+
+  // 1) Inject CSS variables
   Object.keys(t).forEach(k => {
-    if (k.startsWith('--')) {
-      root.style.setProperty(k, t[k]);
-    }
+    if (k.startsWith('--')) root.style.setProperty(k, t[k]);
   });
-  // bg and text on body directly for maximum compatibility
+
+  // 2) Body background & color directly
   document.body.style.background = t['--bg'];
   document.body.style.color = t['--text'];
+
+  // 3) Inject override stylesheet for hardcoded colors
+  const overrideEl = document.getElementById('theme-override');
+  if (overrideEl) {
+    if (theme === 'dark') {
+      overrideEl.textContent = `
+        .hdr, .det-hdr { background: #1c1208 !important; border-color: rgba(249,115,22,.2) !important; }
+        .hdr-stats, .hdr-stat { background: #1c1208 !important; border-color: rgba(249,115,22,.2) !important; }
+        .card, .loan-card { background: #1c1208 !important; border-color: rgba(249,115,22,.2) !important; }
+        .metric-row { background: #1c1208 !important; border-color: rgba(249,115,22,.2) !important; }
+        .metric { border-color: rgba(249,115,22,.15) !important; }
+        .total-box {
+          background: rgba(249,115,22,.08) !important;
+          border-color: rgba(249,115,22,.2) !important;
+        }
+        .total-lbl { color: #d4a882 !important; }
+        .total-val { color: #fff0e6 !important; }
+        .total-divider { background: rgba(249,115,22,.15) !important; }
+        .total-sum-lbl { color: #fff0e6 !important; }
+        .total-sum-val { color: #f97316 !important; }
+        .closure-strip {
+          background: rgba(249,115,22,.08) !important;
+          border-color: rgba(249,115,22,.2) !important;
+        }
+        .cl-tag { color: #f97316 !important; }
+        .cl-date { color: #fff0e6 !important; }
+        .cl-sub { color: #8a6a4a !important; }
+        .cr-lbl { color: #8a6a4a !important; }
+        .cr-val { color: #f87171 !important; }
+        .closure-detail {
+          background: rgba(249,115,22,.08) !important;
+          border-color: rgba(249,115,22,.2) !important;
+        }
+        .closure-det-tag { color: #f97316 !important; }
+        .closure-det-date { color: #fff0e6 !important; }
+        .closure-det-sub { color: #8a6a4a !important; }
+        .closure-det-box { background: rgba(255,255,255,.04) !important; }
+        .closure-det-box-lbl { color: #8a6a4a !important; }
+        .closure-det-box-val { color: #fff0e6 !important; }
+        .closure-phase { border-color: rgba(249,115,22,.15) !important; color: #d4a882 !important; }
+        .det-total-box {
+          background: rgba(249,115,22,.08) !important;
+          border-color: rgba(249,115,22,.2) !important;
+        }
+        .det-total-hdr { color: #f97316 !important; }
+        .det-total-lbl { color: #d4a882 !important; }
+        .det-total-val { color: #fff0e6 !important; }
+        .det-total-divider { background: rgba(249,115,22,.15) !important; }
+        .det-grand-lbl { color: #fff0e6 !important; }
+        .det-grand-val { color: #f97316 !important; }
+        .info-box { background: #261a0e !important; border-color: rgba(249,115,22,.2) !important; }
+        .info-lbl { color: #8a6a4a !important; }
+        .info-val { color: #fff0e6 !important; }
+        .summary-stat { background: #261a0e !important; border-color: rgba(249,115,22,.2) !important; }
+        .summary-stat-lbl { color: #8a6a4a !important; }
+        .summary-stat-val { color: #fff0e6 !important; }
+        .prog-track { background: rgba(249,115,22,.12) !important; }
+        .pay-item { border-color: rgba(249,115,22,.15) !important; }
+        .pay-after { color: #8a6a4a !important; }
+        .pay-date { color: #8a6a4a !important; }
+        .loan-name { color: #fff0e6 !important; }
+        .loan-amount { color: #fff0e6 !important; }
+        .loan-amount-label { color: #8a6a4a !important; }
+        .hdr-stat-lbl { color: #8a6a4a !important; }
+        .hdr-stat-val { color: #fff0e6 !important; }
+        .logo { color: #fff0e6 !important; }
+        .hdr-sub { color: #8a6a4a !important; }
+        .sec-lbl { color: #8a6a4a !important; }
+        .sheet { background: #1c1208 !important; }
+        .sheet-handle { background: rgba(249,115,22,.2) !important; }
+        .sheet-title { color: #fff0e6 !important; }
+        .fl { color: #8a6a4a !important; }
+        .fi { background: #261a0e !important; border-color: rgba(249,115,22,.2) !important; color: #fff0e6 !important; }
+        .breakdown { background: rgba(74,222,128,.08) !important; border-color: rgba(74,222,128,.2) !important; }
+        .bd-total-lbl { color: #fff0e6 !important; }
+        .stbl th { background: #261a0e !important; color: #8a6a4a !important; }
+        .stbl td { color: #d4a882 !important; border-color: rgba(249,115,22,.1) !important; }
+        .stbl tr:nth-child(even) td { background: rgba(255,255,255,.02) !important; }
+        .alert-amber { background: rgba(251,191,36,.08) !important; border-color: rgba(251,191,36,.2) !important; }
+        .alert-red { background: rgba(248,113,113,.08) !important; border-color: rgba(248,113,113,.2) !important; }
+        .alert-green { background: rgba(74,222,128,.08) !important; border-color: rgba(74,222,128,.2) !important; }
+        .badge-green { background: rgba(74,222,128,.12) !important; }
+        .badge-amber { background: rgba(251,191,36,.12) !important; }
+        .badge-red { background: rgba(248,113,113,.12) !important; }
+        .badge-gray { background: rgba(255,255,255,.06) !important; color: #8a6a4a !important; }
+        .badge-accent { background: rgba(249,115,22,.12) !important; }
+        .btn-ghost { background: #261a0e !important; color: #d4a882 !important; border-color: rgba(249,115,22,.2) !important; }
+        .back-btn { background: #261a0e !important; border-color: rgba(249,115,22,.2) !important; color: #fff0e6 !important; }
+        .det-hdr { background: #1c1208 !important; }
+        .det-topbar { background: #1c1208 !important; }
+        .det-body { background: #1c1208 !important; }
+        .det-balance { color: #fff0e6 !important; }
+        .det-sub { color: #8a6a4a !important; }
+        .det-loan-name { color: #8a6a4a !important; }
+        .hdr-stat { background: #1c1208 !important; }
+        .status-header-card { background: linear-gradient(135deg,#f97316,#fb923c) !important; }
+        .shc-box { background: rgba(255,255,255,.12) !important; }
+      `;
+    } else {
+      overrideEl.textContent = ''; // Clear dark overrides
+    }
+  }
+
   localStorage.setItem('fl_theme', theme);
   const btn = document.getElementById('theme-btn');
   if (btn) btn.textContent = t.icon;
